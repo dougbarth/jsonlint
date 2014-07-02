@@ -1,0 +1,8 @@
+{
+  "an_int": 1,
+  "a_float": 1.0,
+  "a_string": "foo",
+  "a_boolean": true,
+  "an_array": [],
+  "an_object": { }
+}
