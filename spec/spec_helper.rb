@@ -1,5 +1,7 @@
 require 'rspec'
 
+require 'jsonlint'
+
 module SpecHelpers
   def spec_data(data_path)
     File.expand_path(File.join('spec/data', data_path))

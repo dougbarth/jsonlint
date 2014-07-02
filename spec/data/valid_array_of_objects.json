@@ -1,0 +1,12 @@
+{
+  "objs": [
+    {
+      "name": "foo",
+      "value": 1
+    },
+    {
+      "name": "bar",
+      "value": 1
+    }
+  ]
+}

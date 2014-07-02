@@ -3,6 +3,9 @@
   "a_float": 1.0,
   "a_string": "foo",
   "a_boolean": true,
-  "an_array": [],
-  "an_object": { }
+  "an_array": [1,2,3],
+  "an_object": {
+    "field1": true,
+    "field2": ""
+  }
 }
