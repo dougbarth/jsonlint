@@ -7,10 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "jsonlint"
   spec.version       = Jsonlint::VERSION
   spec.authors       = ["Doug Barth"]
-  spec.email         = ["doug@pagerduty.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.email         = ["dougbarth@gmail.com"]
+  spec.summary       = %q{JSON lint checker}
+  spec.description   = %q{Checks JSON files for correct syntax and no silly mistakes}
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
