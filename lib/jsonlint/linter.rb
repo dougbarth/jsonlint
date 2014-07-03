@@ -11,10 +11,27 @@ module Jsonlint
       @errors = Hash.new {|h,k| h[k] = [] }
     end
 
+    def check_all(*files_to_check)
+      files_to_check.flatten.each {|f| check(f) }
+    end
+
     def check(path)
       raise FileNotFoundError, "#{path} does not exist" unless File.exist?(path)
 
       check_syntax_valid(path) && check_overlapping_keys(path)
+    end
+
+    def has_errors?
+      ! errors.empty?
+    end
+
+    def display_errors
+      errors.each do |path, errors|
+        puts path
+        errors.each do |err|
+          puts "  #{err}"
+        end
+      end
     end
 
     private

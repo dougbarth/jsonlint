@@ -8,18 +8,10 @@ module Jsonlint
       files_to_check = @argv
 
       linter = Jsonlint::Linter.new
-      files_to_check.each do |file|
-        linter.check(file)
-      end
+      linter.check_all(files_to_check)
 
-      unless linter.errors.empty?
-        linter.errors.each do |path, errors|
-          puts path
-          errors.each do |err|
-            puts "  #{err}"
-          end
-        end
-
+      if linter.has_errors?
+        linter.display_errors
         @kernel.exit(1)
       end
     end
