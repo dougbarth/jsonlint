@@ -3,7 +3,7 @@ require 'rake/tasklib'
 
 require 'jsonlint'
 
-module Jsonlint
+module JsonLint
   class RakeTask < Rake::TaskLib
     attr_accessor :name
     attr_accessor :paths
@@ -24,7 +24,7 @@ module Jsonlint
       task(self.name) do
         files_to_check = Rake::FileList.new(self.paths)
 
-        linter = ::Jsonlint::Linter.new
+        linter = ::JsonLint::Linter.new
         linter.check_all(files_to_check)
 
         if linter.has_errors?

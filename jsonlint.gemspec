@@ -5,7 +5,7 @@ require 'jsonlint/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "jsonlint"
-  spec.version       = Jsonlint::VERSION
+  spec.version       = JsonLint::VERSION
   spec.authors       = ["Doug Barth"]
   spec.email         = ["dougbarth@gmail.com"]
   spec.summary       = %q{JSON lint checker}

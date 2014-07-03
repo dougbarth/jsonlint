@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'jsonlint/linter'
 
-describe 'Jsonlint::Linter' do
-  let(:linter) { Jsonlint::Linter.new }
+describe 'JsonLint::Linter' do
+  let(:linter) { JsonLint::Linter.new }
 
   it 'should throw an exception if given a bogus path' do
     expect { linter.check('/does/not/exist') }.to raise_error

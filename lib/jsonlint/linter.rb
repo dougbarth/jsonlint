@@ -3,7 +3,7 @@ require 'set'
 
 require 'jsonlint/errors'
 
-module Jsonlint
+module JsonLint
   class Linter
     attr_reader :errors
 
@@ -57,7 +57,7 @@ module Jsonlint
       end
 
       def hash_start(key)
-        Jsonlint.logger.debug { "hash_start: #{key.inspect}" }
+        JsonLint.logger.debug { "hash_start: #{key.inspect}" }
 
         case @complex_type.last
         when :hash
@@ -72,13 +72,13 @@ module Jsonlint
       end
 
       def hash_end(key)
-        Jsonlint.logger.debug { "hash_end: #{key.inspect}" }
+        JsonLint.logger.debug { "hash_end: #{key.inspect}" }
         @key_components.pop
         @complex_type.pop
       end
 
       def array_start(key)
-        Jsonlint.logger.debug { "array_start: #{key.inspect}" }
+        JsonLint.logger.debug { "array_start: #{key.inspect}" }
 
         case @complex_type.last
         when :hash
@@ -94,14 +94,14 @@ module Jsonlint
       end
 
       def array_end(key)
-        Jsonlint.logger.debug { "array_end: #{key.inspect}" }
+        JsonLint.logger.debug { "array_end: #{key.inspect}" }
         @key_components.pop
         @complex_type.pop
         @array_positions.pop
       end
 
       def add_value(value, key)
-        Jsonlint.logger.debug { "add_value: #{value.inspect}, #{key.inspect}" }
+        JsonLint.logger.debug { "add_value: #{value.inspect}, #{key.inspect}" }
         case @complex_type.last
         when :hash
           @key_components.push(key)
@@ -116,16 +116,16 @@ module Jsonlint
       end
 
       def error(message, line, column)
-        Jsonlint.logger.debug { "error: #{message.inspect}, #{line.inspect}, #{column.inspect}" }
+        JsonLint.logger.debug { "error: #{message.inspect}, #{line.inspect}, #{column.inspect}" }
       end
 
       private
       def check_for_overlap!
         full_key = @key_components.dup
-        Jsonlint.logger.debug { "Checking #{full_key.join('.')} for overlap" }
+        JsonLint.logger.debug { "Checking #{full_key.join('.')} for overlap" }
 
         unless @seen_keys.add?(full_key)
-          Jsonlint.logger.debug { "Overlapping key #{full_key.join('.')}" }
+          JsonLint.logger.debug { "Overlapping key #{full_key.join('.')}" }
           @overlapping_keys << full_key
         end
       end

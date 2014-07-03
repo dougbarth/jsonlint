@@ -3,7 +3,7 @@ require 'logger'
 require 'jsonlint/version'
 require 'jsonlint/linter'
 
-module Jsonlint
+module JsonLint
   # Your code goes here...
   def self.logger
     @logger ||= Logger.new(STDOUT).tap do |l|

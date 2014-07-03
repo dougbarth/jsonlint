@@ -5,4 +5,4 @@ $: << File.expand_path('../../lib', __FILE__)
 require 'jsonlint'
 require 'jsonlint/cli'
 
-Jsonlint::CLI.new(ARGV).execute!
+JsonLint::CLI.new(ARGV).execute!

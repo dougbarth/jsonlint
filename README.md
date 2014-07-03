@@ -1,4 +1,4 @@
-# Jsonlint
+# JsonLint
 
 TODO: Write a gem description
 

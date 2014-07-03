@@ -1,3 +1,3 @@
-module Jsonlint
+module JsonLint
   class FileNotFoundError < StandardError; end
 end
