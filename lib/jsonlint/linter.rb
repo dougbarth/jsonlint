@@ -1,8 +1,16 @@
 require 'oj'
+require 'set'
+
 require 'jsonlint/errors'
 
 module Jsonlint
   class Linter
+    attr_reader :errors
+
+    def initialize
+      @errors = Hash.new {|h,k| h[k] = [] }
+    end
+
     def check(path)
       raise FileNotFoundError, "#{path} does not exist" unless File.exist?(path)
 
@@ -14,7 +22,8 @@ module Jsonlint
     def check_syntax_valid(path)
       Oj.load_file(path, nilnil: false)
       true
-    rescue Oj::ParseError
+    rescue Oj::ParseError => e
+      errors[path] << e.message
       false
     end
 
@@ -109,6 +118,10 @@ module Jsonlint
       overlap_detector = KeyOverlapDetector.new
       File.open(path, 'r') do |f|
         Oj.saj_parse(overlap_detector, f)
+      end
+
+      overlap_detector.overlapping_keys.each do |key|
+        errors[path] << "The same key is defined twice: #{key.join('.')}"
       end
 
       !! overlap_detector.overlapping_keys.empty?
