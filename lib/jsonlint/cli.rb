@@ -19,6 +19,9 @@ module JsonLint
       rescue JsonLint::FileNotFoundError => e
         @stderr.puts e.message
         exit(1)
+      rescue => e
+        @stderr.puts e.message
+        exit(1)
       end
 
       if linter.has_errors?

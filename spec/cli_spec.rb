@@ -40,4 +40,13 @@ describe 'jsonlint' do
     jsonlint '/does/not/exist'
     assert_failing_with('no such file')
   end
+
+  it 'should fail with a path that is unreadable' do
+    run_simple('mkdir -p tmp')
+    run_simple('touch tmp/unreadable_file.json')
+    run_simple('chmod -r tmp/unreadable_file.json')
+
+    jsonlint 'tmp/unreadable_file.json'
+    assert_failing_with('Permission denied')
+  end
 end
