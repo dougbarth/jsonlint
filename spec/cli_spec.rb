@@ -25,4 +25,14 @@ describe 'jsonlint' do
     jsonlint '--version'
     assert_passing_with(JsonLint::VERSION)
   end
+
+  it 'should exit successfully with good JSON' do
+    jsonlint spec_data('valid.json')
+    assert_success(true)
+  end
+
+  it 'should fail with bad JSON' do
+    jsonlint spec_data('missing_comma.json')
+    assert_success(false)
+  end
 end
