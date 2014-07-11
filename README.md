@@ -1,6 +1,9 @@
 # jsonlint
 
-jsonlint checks your JSON files for syntax errors or silly mistakes
+jsonlint checks your JSON files for syntax errors or silly mistakes. Currently it checks for:
+
+ * Valid JSON syntax
+ * Overlapping key definitions in JSON files, where the last definition would win
 
 ## Installation
 
