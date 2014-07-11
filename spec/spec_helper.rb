@@ -1,5 +1,8 @@
 require 'rspec'
 
+require 'aruba'
+require 'aruba/api'
+
 require 'jsonlint'
 
 module SpecHelpers
@@ -8,6 +11,15 @@ module SpecHelpers
   end
 end
 
+module CliSpecHelpers
+  def jsonlint(args = nil)
+    jsonlint_bin = File.expand_path('../../bin/jsonlint', __FILE__)
+    run_simple("#{jsonlint_bin} #{args}", false)
+  end
+end
+
 RSpec.configure do |config|
   config.include SpecHelpers
+  config.include CliSpecHelpers
+  config.include Aruba::Api
 end
