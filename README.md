@@ -1,5 +1,7 @@
 # jsonlint
 
+[![Build Status](https://travis-ci.org/dougbarth/jsonlint.svg?branch=master)](https://travis-ci.org/dougbarth/jsonlint)
+
 jsonlint checks your JSON files for syntax errors or silly mistakes. Currently it checks for:
 
  * Valid JSON syntax
