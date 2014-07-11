@@ -16,7 +16,7 @@ module JsonLint
     end
 
     def check(path)
-      raise FileNotFoundError, "#{path} does not exist" unless File.exist?(path)
+      raise FileNotFoundError, "#{path}: no such file" unless File.exist?(path)
 
       check_syntax_valid(path) && check_overlapping_keys(path)
     end

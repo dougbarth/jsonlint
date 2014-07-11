@@ -35,4 +35,9 @@ describe 'jsonlint' do
     jsonlint spec_data('missing_comma.json')
     assert_success(false)
   end
+
+  it 'should fail with a path that does not exist' do
+    jsonlint '/does/not/exist'
+    assert_failing_with('no such file')
+  end
 end

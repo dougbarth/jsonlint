@@ -14,7 +14,12 @@ module JsonLint
       Trollop::die 'nead at least one JSON file to check' if files_to_check.empty?
 
       linter = JsonLint::Linter.new
-      linter.check_all(files_to_check)
+      begin
+        linter.check_all(files_to_check)
+      rescue JsonLint::FileNotFoundError => e
+        @stderr.puts e.message
+        exit(1)
+      end
 
       if linter.has_errors?
         linter.display_errors
