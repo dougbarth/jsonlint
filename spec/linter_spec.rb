@@ -22,4 +22,12 @@ describe 'JsonLint::Linter' do
     expect(linter.check(spec_data('overlapping_keys.json'))).to be(false)
     expect(linter.check(spec_data('deep_overlap.json'))).to be(false)
   end
+
+  it 'should be able to check an IO stream' do
+    valid_stream = File.open(spec_data('valid.json'))
+    expect(linter.check_stream(valid_stream)).to be(true)
+
+    invalid_stream = File.open(spec_data('missing_comma.json'))
+    expect(linter.check_stream(invalid_stream)).to be(false)
+  end
 end
