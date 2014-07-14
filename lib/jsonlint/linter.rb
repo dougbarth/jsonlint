@@ -8,7 +8,7 @@ module JsonLint
     attr_reader :errors
 
     def initialize
-      @errors = Hash.new {|h,k| h[k] = [] }
+      @errors = {}
     end
 
     def check_all(*files_to_check)
@@ -18,7 +18,24 @@ module JsonLint
     def check(path)
       raise FileNotFoundError, "#{path}: no such file" unless File.exist?(path)
 
-      check_syntax_valid(path) && check_overlapping_keys(path)
+      valid = false
+      File.open(path, 'r') do |f|
+        error_array = []
+        valid = check_data(f.read, error_array)
+        errors[path] = error_array unless error_array.empty?
+      end
+
+      valid
+    end
+
+    def check_stream(io_stream)
+      json_data = io_stream.read
+      error_array = []
+
+      valid = check_data(json_data, error_array)
+      errors[''] = error_array unless error_array.empty?
+
+      valid
     end
 
     def has_errors?
@@ -36,11 +53,18 @@ module JsonLint
 
     private
 
-    def check_syntax_valid(path)
-      Oj.load_file(path, nilnil: false)
+    def check_data(json_data, errors_array)
+      valid = check_syntax_valid(json_data, errors_array)
+      valid &&= check_overlapping_keys(json_data, errors_array)
+
+      valid
+    end
+
+    def check_syntax_valid(json_data, errors_array)
+      Oj.load(json_data, nilnil: false)
       true
     rescue Oj::ParseError => e
-      errors[path] << e.message
+      errors_array << e.message
       false
     end
 
@@ -131,14 +155,12 @@ module JsonLint
       end
     end
 
-    def check_overlapping_keys(path)
+    def check_overlapping_keys(json_data, errors_array)
       overlap_detector = KeyOverlapDetector.new
-      File.open(path, 'r') do |f|
-        Oj.saj_parse(overlap_detector, f)
-      end
+      Oj.saj_parse(overlap_detector, StringIO.new(json_data))
 
       overlap_detector.overlapping_keys.each do |key|
-        errors[path] << "The same key is defined twice: #{key.join('.')}"
+        errors_array << "The same key is defined twice: #{key.join('.')}"
       end
 
       !! overlap_detector.overlapping_keys.empty?

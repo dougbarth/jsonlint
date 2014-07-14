@@ -49,4 +49,16 @@ describe 'jsonlint' do
     jsonlint 'tmp/unreadable_file.json'
     assert_failing_with('Permission denied')
   end
+
+  it 'should be able to lint good JSON from STDIN' do
+    run_interactive "#{jsonlint_bin} -"
+    pipe_in_file(spec_data('valid.json')) and close_input
+    assert_success(true)
+  end
+
+  it 'should be able to lint bad JSON from STDIN' do
+    run_interactive "#{jsonlint_bin} -"
+    pipe_in_file(spec_data('missing_comma.json')) and close_input
+    assert_success(false)
+  end
 end
