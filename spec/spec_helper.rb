@@ -13,8 +13,11 @@ end
 
 module CliSpecHelpers
   def jsonlint(args = nil)
-    jsonlint_bin = File.expand_path('../../bin/jsonlint', __FILE__)
     run_simple("#{jsonlint_bin} #{args}", false)
+  end
+
+  def jsonlint_bin
+    File.expand_path('../../bin/jsonlint', __FILE__)
   end
 end
 
