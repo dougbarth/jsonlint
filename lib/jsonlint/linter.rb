@@ -21,18 +21,19 @@ module JsonLint
       valid = false
       File.open(path, 'r') do |f|
         error_array = []
-        valid = check_stream(f, error_array)
+        valid = check_data(f.read, error_array)
         errors[path] = error_array unless error_array.empty?
       end
 
       valid
     end
 
-    def check_stream(io_stream, errors_array = [])
-      valid = check_syntax_valid(io_stream, errors_array)
-      io_stream.rewind
+    def check_stream(io_stream)
+      json_data = io_stream.read
+      error_array = []
 
-      valid &&= check_overlapping_keys(io_stream, errors_array)
+      valid = check_data(json_data, error_array)
+      errors[''] = error_array unless error_array.empty?
 
       valid
     end
@@ -52,8 +53,15 @@ module JsonLint
 
     private
 
-    def check_syntax_valid(io_stream, errors_array)
-      Oj.load(io_stream, nilnil: false)
+    def check_data(json_data, errors_array)
+      valid = check_syntax_valid(json_data, errors_array)
+      valid &&= check_overlapping_keys(json_data, errors_array)
+
+      valid
+    end
+
+    def check_syntax_valid(json_data, errors_array)
+      Oj.load(json_data, nilnil: false)
       true
     rescue Oj::ParseError => e
       errors_array << e.message
@@ -147,9 +155,9 @@ module JsonLint
       end
     end
 
-    def check_overlapping_keys(io_stream, errors_array)
+    def check_overlapping_keys(json_data, errors_array)
       overlap_detector = KeyOverlapDetector.new
-      Oj.saj_parse(overlap_detector, io_stream)
+      Oj.saj_parse(overlap_detector, StringIO.new(json_data))
 
       overlap_detector.overlapping_keys.each do |key|
         errors_array << "The same key is defined twice: #{key.join('.')}"

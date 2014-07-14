@@ -15,7 +15,11 @@ module JsonLint
 
       linter = JsonLint::Linter.new
       begin
-        linter.check_all(files_to_check)
+        if files_to_check == ['-']
+          linter.check_stream(STDIN)
+        else
+          linter.check_all(files_to_check)
+        end
       rescue JsonLint::FileNotFoundError => e
         @stderr.puts e.message
         exit(1)
