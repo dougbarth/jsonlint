@@ -30,4 +30,12 @@ describe 'JsonLint::Linter' do
     invalid_stream = File.open(spec_data('missing_comma.json'))
     expect(linter.check_stream(invalid_stream)).to be(false)
   end
+
+  it 'should be unhappy with an empty JSON file' do
+    expect(linter.check(spec_data('empty_file.json'))).to be(false)
+  end
+
+  it 'should be unhapy with a JSON file full of spaces' do
+    expect(linter.check(spec_data('lots_of_spaces.json'))).to be(false)
+  end
 end
