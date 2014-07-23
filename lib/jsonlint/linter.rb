@@ -65,6 +65,9 @@ module JsonLint
       if json_data.empty?
         errors_array << 'The JSON should not be an empty string'
         false
+      elsif json_data.strip.empty?
+        errors_array << 'The JSON should not just be spaces'
+        false
       else
         true
       end
