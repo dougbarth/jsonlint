@@ -25,4 +25,7 @@ RSpec.configure do |config|
   config.include SpecHelpers
   config.include CliSpecHelpers
   config.include Aruba::Api
+
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
 end
