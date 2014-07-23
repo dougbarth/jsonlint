@@ -54,10 +54,20 @@ module JsonLint
     private
 
     def check_data(json_data, errors_array)
-      valid = check_syntax_valid(json_data, errors_array)
+      valid = check_not_empty(json_data, errors_array)
+      valid &&= check_syntax_valid(json_data, errors_array)
       valid &&= check_overlapping_keys(json_data, errors_array)
 
       valid
+    end
+
+    def check_not_empty(json_data, errors_array)
+      if json_data.empty?
+        errors_array << 'The JSON should not be an empty string'
+        false
+      else
+        true
+      end
     end
 
     def check_syntax_valid(json_data, errors_array)
