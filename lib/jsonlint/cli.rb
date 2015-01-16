@@ -11,7 +11,7 @@ module JsonLint
 
       files_to_check = @argv
 
-      Trollop::die 'nead at least one JSON file to check' if files_to_check.empty?
+      Trollop::die 'need at least one JSON file to check' if files_to_check.empty?
 
       linter = JsonLint::Linter.new
       begin
@@ -40,14 +40,9 @@ module JsonLint
       @opts = Trollop::options(@argv) do
         banner 'Usage: jsonlint [options] file1.json [file2.json ...]'
         version(JsonLint::VERSION)
-
         banner ''
         banner 'Options:'
       end
-    end
-
-    def opts
-      @opts
     end
   end
 end
