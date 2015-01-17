@@ -28,16 +28,15 @@ module JsonLint
         exit(1)
       end
 
-      if linter.has_errors?
-        linter.display_errors
-        @kernel.exit(1)
-      end
+      return unless linter.errors?
+      linter.display_errors
+      @kernel.exit(1)
     end
 
     private
 
     def parse_options
-      @opts = Trollop::options(@argv) do
+      @opts = Trollop.options(@argv) do
         banner 'Usage: jsonlint [options] file1.json [file2.json ...]'
         version(JsonLint::VERSION)
 
