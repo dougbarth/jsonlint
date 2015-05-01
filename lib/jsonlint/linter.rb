@@ -12,11 +12,11 @@ module JsonLint
     end
 
     def check_all(*files_to_check)
-      files_to_check.flatten.each {|f| check(f) }
+      files_to_check.flatten.each { |f| check(f) }
     end
 
     def check(path)
-      raise FileNotFoundError, "#{path}: no such file" unless File.exist?(path)
+      fail FileNotFoundError, "#{path}: no such file" unless File.exist?(path)
 
       valid = false
       File.open(path, 'r') do |f|
@@ -38,8 +38,8 @@ module JsonLint
       valid
     end
 
-    def has_errors?
-      ! errors.empty?
+    def errors?
+      !errors.empty?
     end
 
     def display_errors
@@ -157,14 +157,14 @@ module JsonLint
       end
 
       private
+
       def check_for_overlap!
         full_key = @key_components.dup
         JsonLint.logger.debug { "Checking #{full_key.join('.')} for overlap" }
 
-        unless @seen_keys.add?(full_key)
-          JsonLint.logger.debug { "Overlapping key #{full_key.join('.')}" }
-          @overlapping_keys << full_key
-        end
+        return if @seen_keys.add?(full_key)
+        JsonLint.logger.debug { "Overlapping key #{full_key.join('.')}" }
+        @overlapping_keys << full_key
       end
     end
 
@@ -173,10 +173,10 @@ module JsonLint
       Oj.saj_parse(overlap_detector, StringIO.new(json_data))
 
       overlap_detector.overlapping_keys.each do |key|
-        errors_array << "The same key is defined twice: #{key.join('.')}"
+        errors_array << "The same key is defined more than once: #{key.join('.')}"
       end
 
-      !! overlap_detector.overlapping_keys.empty?
+      !!overlap_detector.overlapping_keys.empty?
     end
   end
 end
