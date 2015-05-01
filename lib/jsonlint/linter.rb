@@ -54,14 +54,14 @@ module JsonLint
     private
 
     def check_data(json_data, errors_array)
-      valid = check_not_empty(json_data, errors_array)
-      valid &&= check_syntax_valid(json_data, errors_array)
-      valid &&= check_overlapping_keys(json_data, errors_array)
+      valid = check_not_empty?(json_data, errors_array)
+      valid &&= check_syntax_valid?(json_data, errors_array)
+      valid &&= check_overlapping_keys?(json_data, errors_array)
 
       valid
     end
 
-    def check_not_empty(json_data, errors_array)
+    def check_not_empty?(json_data, errors_array)
       if json_data.empty?
         errors_array << 'The JSON should not be an empty string'
         false
@@ -73,7 +73,7 @@ module JsonLint
       end
     end
 
-    def check_syntax_valid(json_data, errors_array)
+    def check_syntax_valid?(json_data, errors_array)
       Oj.load(json_data, nilnil: false)
       true
     rescue Oj::ParseError => e
@@ -168,7 +168,7 @@ module JsonLint
       end
     end
 
-    def check_overlapping_keys(json_data, errors_array)
+    def check_overlapping_keys?(json_data, errors_array)
       overlap_detector = KeyOverlapDetector.new
       Oj.saj_parse(overlap_detector, StringIO.new(json_data))
 
