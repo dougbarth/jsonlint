@@ -7,6 +7,7 @@ module JsonLint
   class RakeTask < Rake::TaskLib
     attr_accessor :name
     attr_accessor :paths
+    attr_accessor :ignore_paths
 
     def initialize(name = :jsonlint)
       @name = name
@@ -23,6 +24,9 @@ module JsonLint
 
       task(name) do
         files_to_check = Rake::FileList.new(paths)
+        files_to_ignore = Rake::FileList.new(ignore_paths)
+
+        files_to_check = files_to_check - files_to_ignore
 
         linter = ::JsonLint::Linter.new
         linter.check_all(files_to_check)
