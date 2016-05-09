@@ -19,7 +19,7 @@ module JsonLint
     private
 
     def define_task
-      desc 'Run jsonlint' unless ::Rake.application.last_comment
+      desc 'Run jsonlint' unless ::Rake.application.last_description
 
       task(name) do
         files_to_check = Rake::FileList.new(paths)
