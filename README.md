@@ -1,7 +1,7 @@
 # jsonlint
 
-[![Build Status](https://travis-ci.org/dougbarth/jsonlint.svg?branch=master)](https://travis-ci.org/dougbarth/jsonlint)
-[![Gem Version](http://img.shields.io/gem/v/jsonlint.svg)](http://img.shields.io/gem/v/jsonlint.svg)
+[![Build Status](https://travis-ci.org/PagerDuty/jsonlint.svg?branch=master)](https://travis-ci.org/PagerDuty/jsonlint)
+[![Gem Version](http://img.shields.io/gem/v/jsonlint.svg)](https://rubygems.org/gems/jsonlint)
 
 jsonlint checks your JSON files for syntax errors or silly mistakes. Currently it checks for:
 
@@ -67,7 +67,7 @@ spec/data/overlapping_keys.json
 
 ## Contributing
 
-1. Fork it ( https://github.com/dougbarth/jsonlint/fork )
+1. Fork it ( https://github.com/PagerDuty/jsonlint/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
