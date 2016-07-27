@@ -1,7 +1,7 @@
 require 'rspec'
 
 require 'aruba'
-require 'aruba/api'
+require 'aruba/rspec'
 
 require 'jsonlint'
 
@@ -13,7 +13,7 @@ end
 
 module CliSpecHelpers
   def jsonlint(args = nil)
-    run_simple("#{jsonlint_bin} #{args}", false)
+    run_simple("#{jsonlint_bin} #{args}", fail_on_error: false)
   end
 
   def jsonlint_bin

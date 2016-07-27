@@ -5,7 +5,7 @@ describe 'JsonLint::Linter' do
   let(:linter) { JsonLint::Linter.new }
 
   it 'should throw an exception if given a bogus path' do
-    expect { linter.check('/does/not/exist') }.to raise_error
+    expect { linter.check('/does/not/exist') }.to raise_error(JsonLint::FileNotFoundError)
   end
 
   it 'should be happy with a valid JSON file' do
