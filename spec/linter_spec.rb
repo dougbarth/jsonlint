@@ -12,10 +12,12 @@ describe 'JsonLint::Linter' do
     expect(linter.check(spec_data('valid.json'))).to be(true)
     expect(linter.check(spec_data('valid_array_of_objects.json'))).to be(true)
     expect(linter.check(spec_data('valid_array_of_arrays.json'))).to be(true)
+    expect(linter.errors_count).to eq(0)
   end
 
   it 'should be unhappy with an invalid JSON file' do
     expect(linter.check(spec_data('missing_comma.json'))).to be(false)
+    expect(linter.errors_count).to eq(1)
   end
 
   it 'should be unhappy with JSON that has overlapping keys' do

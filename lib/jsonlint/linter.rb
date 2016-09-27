@@ -42,6 +42,11 @@ module JsonLint
       !errors.empty?
     end
 
+    # Return the number of lint errors found
+    def errors_count
+      errors.length
+    end
+
     def display_errors
       errors.each do |path, errors|
         puts path

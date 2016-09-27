@@ -22,14 +22,21 @@ module JsonLint
       desc 'Run jsonlint' unless ::Rake.application.last_description
 
       task(name) do
+        puts 'Running JsonLint...'
+
         files_to_check = Rake::FileList.new(paths)
+
+        puts "Checking #{files_to_check.flatten.length} files"
 
         linter = ::JsonLint::Linter.new
         linter.check_all(files_to_check)
 
         if linter.errors?
           linter.display_errors
-          abort('JSON lint found')
+          puts "JSON lint found #{linter.errors_count} errors"
+          abort('JsonLint failed!')
+        else
+          puts 'JsonLint found no errors'
         end
       end
     end
