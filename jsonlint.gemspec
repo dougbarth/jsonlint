@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "aruba"
+  spec.add_development_dependency "aruba", "<= 0.6.2"
 end
