@@ -65,6 +65,15 @@ spec/data/overlapping_keys.json
   The same key is defined twice: foo
 ```
 
+### Rake task options
+
+Add these options similarly to the path option seen above.
+
+| Option | Description | Default |
+| ------------- | ------------- | ------------- | ------------- |
+| `exclude_paths` | List of files or paths to exclude from linting | `nil` |
+| `paths` | List of files or paths to lint | `nil` |
+
 ## Contributing
 
 1. Fork it ( https://github.com/PagerDuty/jsonlint/fork )

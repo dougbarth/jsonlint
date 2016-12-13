@@ -7,9 +7,11 @@ module JsonLint
   class RakeTask < Rake::TaskLib
     attr_accessor :name
     attr_accessor :paths
+    attr_accessor :exclude_paths
 
     def initialize(name = :jsonlint)
       @name = name
+      @exclude_paths = []
 
       yield self if block_given?
 
@@ -24,7 +26,12 @@ module JsonLint
       task(name) do
         puts 'Running JsonLint...'
 
-        files_to_check = Rake::FileList.new(paths)
+        files_to_check_raw = Rake::FileList.new(paths)
+        files_to_exclude = Rake::FileList.new(exclude_paths)
+        files_to_check = files_to_check_raw - files_to_exclude
+
+        puts "Checking #{files_to_check.flatten.length} files"
+        puts "Excluding #{files_to_exclude.flatten.length} files"
 
         puts "Checking #{files_to_check.flatten.length} files"
 
