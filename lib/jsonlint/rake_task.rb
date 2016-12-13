@@ -8,9 +8,11 @@ module JsonLint
     attr_accessor :name
     attr_accessor :paths
     attr_accessor :exclude_paths
+    attr_accessor :fail_on_error
 
     def initialize(name = :jsonlint)
       @name = name
+      @fail_on_error = true
       @exclude_paths = []
 
       yield self if block_given?
@@ -41,7 +43,7 @@ module JsonLint
         if linter.errors?
           linter.display_errors
           puts "JSON lint found #{linter.errors_count} errors"
-          abort('JsonLint failed!')
+          abort('JsonLint failed!') if fail_on_error
         else
           puts 'JsonLint found no errors'
         end
