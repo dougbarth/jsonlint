@@ -71,6 +71,7 @@ Add these options similarly to the path option seen above.
 
 | Option | Description | Default |
 | ------------- | ------------- | ------------- | ------------- |
+| `debug` | Debug logging | `false` |
 | `exclude_paths` | List of files or paths to exclude from linting | `nil` |
 | `fail_on_error` | Continue on to the next rake task when false and don't fail even if JsonLint finds errors | `true` |
 | `paths` | List of files or paths to lint | `nil` |

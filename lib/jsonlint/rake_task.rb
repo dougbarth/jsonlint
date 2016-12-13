@@ -7,13 +7,15 @@ module JsonLint
   class RakeTask < Rake::TaskLib
     attr_accessor :name
     attr_accessor :paths
+    attr_accessor :debug
     attr_accessor :exclude_paths
     attr_accessor :fail_on_error
 
     def initialize(name = :jsonlint)
       @name = name
-      @fail_on_error = true
+      @debug = false
       @exclude_paths = []
+      @fail_on_error = true
 
       yield self if block_given?
 
@@ -27,6 +29,8 @@ module JsonLint
 
       task(name) do
         puts 'Running JsonLint...'
+
+        YamlLint.logger.level = Logger::DEBUG if debug
 
         files_to_check_raw = Rake::FileList.new(paths)
         files_to_exclude = Rake::FileList.new(exclude_paths)
