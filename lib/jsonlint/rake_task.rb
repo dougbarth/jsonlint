@@ -34,12 +34,10 @@ module JsonLint
 
         files_to_check_raw = Rake::FileList.new(paths)
         files_to_exclude = Rake::FileList.new(exclude_paths)
-        files_to_check = files_to_check_raw - files_to_exclude
+        files_to_check = files_to_check_raw.exclude(files_to_exclude)
 
         puts "Checking #{files_to_check.flatten.length} files"
         puts "Excluding #{files_to_exclude.flatten.length} files"
-
-        puts "Checking #{files_to_check.flatten.length} files"
 
         linter = ::JsonLint::Linter.new
         linter.check_all(files_to_check)
