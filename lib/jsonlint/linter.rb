@@ -79,7 +79,7 @@ module JsonLint
     end
 
     def check_syntax_valid?(json_data, errors_array)
-      Oj.load(json_data, nilnil: false)
+      Oj.load(json_data, {"nilnil" => false})
       true
     rescue Oj::ParseError => e
       errors_array << e.message
