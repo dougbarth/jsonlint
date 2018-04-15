@@ -3,7 +3,11 @@ require 'trollop'
 module JsonLint
   class CLI
     def initialize(argv, stdin = STDIN, stdout = STDOUT, stderr = STDERR, kernel = Kernel)
-      @argv, @stdin, @stdout, @stderr, @kernel = argv, stdin, stdout, stderr, kernel
+      @argv = argv
+      @stdin = stdin
+      @stdout = stdout
+      @stderr = stderr
+      @kernel = kernel
     end
 
     def execute!
@@ -11,7 +15,7 @@ module JsonLint
 
       files_to_check = @argv
 
-      Trollop::die 'need at least one JSON file to check' if files_to_check.empty?
+      Trollop.die 'need at least one JSON file to check' if files_to_check.empty?
 
       linter = JsonLint::Linter.new
       begin
@@ -23,7 +27,7 @@ module JsonLint
       rescue JsonLint::FileNotFoundError => e
         @stderr.puts e.message
         exit(1)
-      rescue => e
+      rescue StandardError => e
         @stderr.puts e.message
         exit(1)
       end

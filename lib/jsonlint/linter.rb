@@ -16,7 +16,7 @@ module JsonLint
     end
 
     def check(path)
-      fail FileNotFoundError, "#{path}: no such file" unless File.exist?(path)
+      raise FileNotFoundError, "#{path}: no such file" unless File.exist?(path)
 
       valid = false
       File.open(path, 'r') do |f|
@@ -181,7 +181,7 @@ module JsonLint
         errors_array << "The same key is defined more than once: #{key.join('.')}"
       end
 
-      !!overlap_detector.overlapping_keys.empty?
+      !!overlap_detector.overlapping_keys.empty? # rubocop:disable Style/DoubleNegation
     end
   end
 end

@@ -17,7 +17,7 @@ module CliSpecHelpers
   end
 
   def jsonlint_bin
-    File.expand_path('../../bin/jsonlint', __FILE__)
+    File.expand_path('../bin/jsonlint', __dir__)
   end
 end
 

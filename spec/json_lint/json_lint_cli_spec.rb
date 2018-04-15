@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'jsonlint' do
-  it 'should print usage if run with no args' do
+describe JsonLint do
+  it 'prints usage if run with no args' do
     jsonlint
-    expect(last_command_started).to_not be_successfully_executed
+    expect(last_command_started).not_to be_successfully_executed
     expect(last_command_started).to have_output(/Error: need at least one JSON file to check./)
   end
 
@@ -31,41 +31,40 @@ describe 'jsonlint' do
     expect(last_command_started).to have_output JsonLint::VERSION
   end
 
-  it 'should exit successfully with good JSON' do
+  it 'exits successfully with good JSON' do
     jsonlint spec_data('valid.json')
     expect(last_command_started).to be_successfully_executed
   end
 
-  it 'should fail with bad JSON' do
+  it 'fails with bad JSON' do
     jsonlint spec_data('missing_comma.json')
-    expect(last_command_started).to_not be_successfully_executed
+    expect(last_command_started).not_to be_successfully_executed
   end
 
-  it 'should fail with a path that does not exist' do
+  it 'fails with a path that does not exist' do
     jsonlint '/does/not/exist'
-    expect(last_command_started).to_not be_successfully_executed
+    expect(last_command_started).not_to be_successfully_executed
     expect(last_command_started).to have_output(/no such file/)
   end
 
-  it 'should fail with a path that is unreadable' do
-    run_simple('mkdir -p tmp')
-    run_simple('touch tmp/unreadable_file.json')
-    run_simple('chmod -r tmp/unreadable_file.json')
+  it 'fails with a path that is unreadable' do
+    file = Tempfile.new('unreadable_file.json')
+    run_simple("chmod -r #{file.path}")
 
-    jsonlint 'tmp/unreadable_file.json'
-    expect(last_command_started).to_not be_successfully_executed
+    jsonlint file.path
+    expect(last_command_started).not_to be_successfully_executed
     expect(last_command_started).to have_output(/Permission denied/)
   end
 
-  it 'should be able to lint good JSON from STDIN' do
+  it 'is able to lint good JSON from STDIN' do
     run "#{jsonlint_bin} -"
-    pipe_in_file('../../spec/data/valid.json') and close_input
+    pipe_in_file('../../spec/data/valid.json') && close_input
     expect(last_command_started).to be_successfully_executed
   end
 
-  it 'should be able to lint bad JSON from STDIN' do
+  it 'is able to lint bad JSON from STDIN' do
     run "#{jsonlint_bin} -"
-    pipe_in_file('../../spec/data/missing_comma.json') and close_input
-    expect(last_command_started).to_not be_successfully_executed
+    pipe_in_file('../../spec/data/missing_comma.json') && close_input
+    expect(last_command_started).not_to be_successfully_executed
   end
 end

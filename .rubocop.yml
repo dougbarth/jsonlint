@@ -1,0 +1,13 @@
+require: 'rubocop-rspec'
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
