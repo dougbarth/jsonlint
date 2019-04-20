@@ -48,9 +48,9 @@ describe 'jsonlint' do
   end
 
   it 'should fail with a path that is unreadable' do
-    run_simple('mkdir -p tmp')
-    run_simple('touch tmp/unreadable_file.json')
-    run_simple('chmod -r tmp/unreadable_file.json')
+    run_command_and_stop('mkdir -p tmp')
+    run_command_and_stop('touch tmp/unreadable_file.json')
+    run_command_and_stop('chmod -r tmp/unreadable_file.json')
 
     jsonlint 'tmp/unreadable_file.json'
     expect(last_command_started).to_not be_successfully_executed
@@ -58,13 +58,13 @@ describe 'jsonlint' do
   end
 
   it 'should be able to lint good JSON from STDIN' do
-    run "#{jsonlint_bin} -"
+    run_command "#{jsonlint_bin} -"
     pipe_in_file('../../spec/data/valid.json') and close_input
     expect(last_command_started).to be_successfully_executed
   end
 
   it 'should be able to lint bad JSON from STDIN' do
-    run "#{jsonlint_bin} -"
+    run_command "#{jsonlint_bin} -"
     pipe_in_file('../../spec/data/missing_comma.json') and close_input
     expect(last_command_started).to_not be_successfully_executed
   end
