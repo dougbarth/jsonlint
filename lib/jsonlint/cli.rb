@@ -1,4 +1,4 @@
-require 'trollop'
+require 'optimist'
 
 module JsonLint
   class CLI
@@ -11,7 +11,7 @@ module JsonLint
 
       files_to_check = @argv
 
-      Trollop::die 'need at least one JSON file to check' if files_to_check.empty?
+      Optimist::die 'need at least one JSON file to check' if files_to_check.empty?
 
       linter = JsonLint::Linter.new
       begin
@@ -36,7 +36,7 @@ module JsonLint
     private
 
     def parse_options
-      @opts = Trollop.options(@argv) do
+      @opts = Optimist.options(@argv) do
         banner 'Usage: jsonlint [options] file1.json [file2.json ...]'
         version(JsonLint::VERSION)
         banner ''
