@@ -13,7 +13,7 @@ end
 
 module CliSpecHelpers
   def jsonlint(args = nil)
-    run_simple("#{jsonlint_bin} #{args}", fail_on_error: false)
+    run_command_and_stop("#{jsonlint_bin} #{args}", fail_on_error: false)
   end
 
   def jsonlint_bin
