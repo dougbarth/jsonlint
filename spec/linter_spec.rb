@@ -40,4 +40,8 @@ describe 'JsonLint::Linter' do
   it 'should be unhapy with a JSON file full of spaces' do
     expect(linter.check(spec_data('lots_of_spaces.json'))).to be(false)
   end
+
+  it 'should not deserialise objects' do
+    expect(linter.check(spec_data('serialised.json'))).to be(true)
+  end
 end
