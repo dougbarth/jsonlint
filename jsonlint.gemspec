@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'optimist', '~> 3'
 
   spec.add_development_dependency 'bundler', '~> 2'
-  spec.add_development_dependency 'rake', '~> 12.3'
+  spec.add_development_dependency 'rake', '~> 13'
   spec.add_development_dependency 'rspec', '~> 3.8'
-  spec.add_development_dependency 'aruba', '~> 0.14'
+  spec.add_development_dependency 'aruba', '~> 2'
 end
