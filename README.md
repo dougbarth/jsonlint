@@ -1,6 +1,6 @@
 # jsonlint
 
-[![Build Status](https://travis-ci.org/dougbarth/jsonlint.svg?branch=master)](https://travis-ci.org/dougbarth/jsonlint)
+[![Ruby](https://github.com/dougbarth/jsonlint/actions/workflows/ruby.yml/badge.svg)](https://github.com/dougbarth/jsonlint/actions/workflows/ruby.yml)
 [![Gem Version](http://img.shields.io/gem/v/jsonlint.svg)](https://rubygems.org/gems/jsonlint)
 
 jsonlint checks your JSON files for syntax errors or silly mistakes. Currently it checks for:
